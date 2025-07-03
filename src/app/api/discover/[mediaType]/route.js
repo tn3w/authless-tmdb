@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import { apiHandler } from '../../../../utils/apiHandler';
-
-export const runtime = 'edge';
+import { filteredApiHandler } from '../../../../utils/apiHandler';
 
 export async function GET(request, { params }) {
   const { mediaType } = params;
@@ -10,28 +8,32 @@ export async function GET(request, { params }) {
   if (mediaType !== 'movie' && mediaType !== 'tv') {
     return NextResponse.json(
       { error: 'Invalid media type for discover. Must be "movie" or "tv".' },
-      { status: 400 }
+      { 
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        }
+      }
     );
   }
   
-  const allowedParams = [
+  // Parameters to send directly to TMDB API
+  const apiParams = [
     'language',
-    'region',
     'sort_by',
     'certification_country',
     'certification',
     'certification.lte',
     'certification.gte',
-    'include_adult',
     'include_video',
     'page',
-    'primary_release_year',
     'primary_release_date.gte',
     'primary_release_date.lte',
     'release_date.gte',
     'release_date.lte',
     'with_release_type',
-    'year',
     'vote_count.gte',
     'vote_count.lte',
     'vote_average.gte',
@@ -62,5 +64,13 @@ export async function GET(request, { params }) {
     'with_type'
   ];
   
-  return apiHandler(request, `/discover/${mediaType}`, allowedParams);
+  // Parameters to handle with server-side filtering
+  const filterParams = [
+    'region',
+    'include_adult',
+    'primary_release_year',
+    'year'
+  ];
+  
+  return filteredApiHandler(request, `/discover/${mediaType}`, apiParams, filterParams);
 } 

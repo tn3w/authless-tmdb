@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: 'standalone',
+  trailingSlash: false,
+  // Headers for API routes
   async headers() {
     return [
       {
@@ -19,8 +22,6 @@ const nextConfig = {
     optimizeCss: true,
     scrollRestoration: true,
   },
-  // Specify which pages should use Edge runtime
-  output: 'standalone',
 };
 
 export default nextConfig; 

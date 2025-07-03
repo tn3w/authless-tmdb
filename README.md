@@ -7,6 +7,7 @@ A serverless proxy for The Movie Database (TMDB) API that handles authentication
 - **No API Key Required**: Authentication is handled server-side
 - **Optimized Caching**: Utilizes Vercel's Edge Cache to minimize API calls and improve performance
 - **Complete API Coverage**: Implements all essential TMDB API endpoints
+- **Server-Side Filtering**: Optimized filtering implemented server-side
 - **Edge Deployment**: Fast global response times with Vercel Edge Functions
 - **Efficient Resource Usage**: Designed to minimize Vercel's compute units
 
@@ -20,6 +21,9 @@ A serverless proxy for The Movie Database (TMDB) API that handles authentication
 - `/api/search/movie` - Search for movies
 - `/api/search/tv` - Search for TV shows
 - `/api/search/multi` - Search for movies, TV shows, and people
+- `/api/search/person` - Search for people
+- `/api/search/collection` - Search for collections
+- `/api/search/company` - Search for companies
 
 ### Discover
 - `/api/discover/movie` - Discover movies with various filters
@@ -33,6 +37,14 @@ A serverless proxy for The Movie Database (TMDB) API that handles authentication
 - `/api/movie/{id}/similar` - Get similar movies
 - `/api/movie/{id}/keywords` - Get movie keywords
 - `/api/movie/{id}/external_ids` - Get external IDs for a movie
+- `/api/movie/{id}/videos` - Get movie videos
+- `/api/movie/{id}/reviews` - Get movie reviews
+- `/api/movie/{id}/lists` - Get lists containing the movie
+- `/api/movie/{id}/changes` - Get movie changes
+- `/api/movie/{id}/watch/providers` - Get movie watch providers
+- `/api/movie/{id}/release_dates` - Get movie release dates
+- `/api/movie/{id}/alternative_titles` - Get movie alternative titles
+- `/api/movie/{id}/translations` - Get movie translations
 
 ### TV Show Details
 - `/api/tv/{id}` - Get detailed information about a TV show
@@ -42,6 +54,28 @@ A serverless proxy for The Movie Database (TMDB) API that handles authentication
 - `/api/tv/{id}/similar` - Get similar TV shows
 - `/api/tv/{id}/keywords` - Get TV show keywords
 - `/api/tv/{id}/external_ids` - Get external IDs for a TV show
+- `/api/tv/{id}/videos` - Get TV show videos
+- `/api/tv/{id}/reviews` - Get TV show reviews
+- `/api/tv/{id}/content_ratings` - Get TV content ratings
+- `/api/tv/{id}/changes` - Get TV show changes
+- `/api/tv/{id}/watch/providers` - Get TV show watch providers
+- `/api/tv/{id}/episode_groups` - Get TV show episode groups
+- `/api/tv/{id}/alternative_titles` - Get TV show alternative titles
+- `/api/tv/{id}/translations` - Get TV show translations
+- `/api/tv/{id}/seasons` - Get TV show seasons
+- `/api/tv/{id}/episodes` - Get TV show episodes
+- `/api/tv/{id}/aggregate_credits` - Get aggregated credits for TV show
+
+### Person Details
+- `/api/person/{id}` - Get detailed information about a person
+- `/api/person/{id}/movie_credits` - Get movie credits for a person
+- `/api/person/{id}/tv_credits` - Get TV credits for a person
+- `/api/person/{id}/combined_credits` - Get combined (movie and TV) credits for a person
+- `/api/person/{id}/external_ids` - Get external IDs for a person
+- `/api/person/{id}/images` - Get images of a person
+- `/api/person/{id}/tagged_images` - Get tagged images of a person
+- `/api/person/{id}/translations` - Get translated data for a person
+- `/api/person/{id}/changes` - Get changes for a person
 
 ### Trending
 - `/api/trending/all/day` - Get trending content for the day
@@ -50,9 +84,25 @@ A serverless proxy for The Movie Database (TMDB) API that handles authentication
 - `/api/trending/movie/week` - Get trending movies for the week
 - `/api/trending/tv/day` - Get trending TV shows for the day
 - `/api/trending/tv/week` - Get trending TV shows for the week
+- `/api/trending/person/day` - Get trending people for the day
+- `/api/trending/person/week` - Get trending people for the week
 
 ### Collections
 - `/api/collection/{id}` - Get collection details
+
+## Server-Side Filtering
+
+This API implements server-side filtering for several parameters, allowing for more efficient and flexible queries:
+
+- **include_adult**: Filter out adult content (default: false)
+- **region**: Filter by region/country
+- **year**: Filter by release year
+- **primary_release_year**: Filter movies by their primary release year
+
+For example:
+```
+/api/search/movie?query=matrix&include_adult=false&year=1999
+```
 
 ## Caching Strategy
 

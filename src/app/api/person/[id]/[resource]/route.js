@@ -6,20 +6,14 @@ export async function GET(request, { params }) {
   
   // Validate resource type
   const allowedResources = [
-    'images',
-    'credits',
-    'recommendations',
-    'similar',
-    'keywords',
+    'movie_credits',
+    'tv_credits',
+    'combined_credits',
     'external_ids',
-    'videos',
-    'reviews',
-    'lists',
-    'changes',
-    'watch/providers',
-    'release_dates',
-    'alternative_titles',
-    'translations'
+    'images',
+    'tagged_images',
+    'translations',
+    'changes'
   ];
   
   if (!allowedResources.includes(resource)) {
@@ -36,5 +30,5 @@ export async function GET(request, { params }) {
     );
   }
   
-  return dynamicResourceHandler(request, 'movie', id, resource);
+  return dynamicResourceHandler(request, 'person', id, resource);
 } 

@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getGenres } from '../../../../../utils/tmdbApi';
 
-export const runtime = 'edge';
-
 export async function GET(request, { params }) {
   try {
     const { mediaType } = params;
@@ -11,7 +9,14 @@ export async function GET(request, { params }) {
     if (mediaType !== 'movie' && mediaType !== 'tv') {
       return NextResponse.json(
         { error: 'Invalid media type. Must be "movie" or "tv".' },
-        { status: 400 }
+        { 
+          status: 400,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type'
+          }
+        }
       );
     }
     
@@ -21,7 +26,10 @@ export async function GET(request, { params }) {
       status: 200,
       headers: {
         // Cache genres for a long time since they rarely change
-        'Cache-Control': 'public, max-age=604800, s-maxage=604800, stale-while-revalidate=2592000'
+        'Cache-Control': 'public, max-age=604800, s-maxage=604800, stale-while-revalidate=2592000',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
       }
     });
   } catch (error) {
@@ -29,7 +37,14 @@ export async function GET(request, { params }) {
     
     return NextResponse.json(
       { error: 'Failed to fetch genre list' },
-      { status: 500 }
+      { 
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        }
+      }
     );
   }
 } 
