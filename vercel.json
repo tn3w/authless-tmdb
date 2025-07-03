@@ -11,7 +11,7 @@
   ],
   "crons": [
     {
-      "path": "/api/cron/daily-update?secret=${CRON_SECRET}",
+      "path": "/api/trending/all/week",
       "schedule": "0 0 * * *"
     }
   ]
