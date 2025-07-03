@@ -1,9 +1,10 @@
 export default async function handler(req, res) {
-    const authHeader = req.headers.authorization;
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-      return res.status(401).json({ error: 'Unauthorized' });
+    const { secret } = req.query;
+    
+    if (!secret || secret !== process.env.CRON_SECRET) {
+      return res.status(401).json({ error: 'Unauthorized - Invalid or missing secret' });
     }
-
+  
     try {
       const endpoints = [
         '/api/genre/movie/list',
@@ -44,4 +45,4 @@ export default async function handler(req, res) {
         timestamp: new Date().toISOString()
       });
     }
-  }
+}

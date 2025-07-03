@@ -11,11 +11,8 @@
   ],
   "crons": [
     {
-      "path": "/api/cron/daily-update",
-      "schedule": "0 0 * * *",
-      "headers": {
-        "Authorization": "Bearer ${CRON_SECRET}"
-      }
+      "path": "/api/cron/daily-update?secret=${CRON_SECRET}",
+      "schedule": "0 0 * * *"
     }
   ]
 } 
