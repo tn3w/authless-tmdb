@@ -20,7 +20,7 @@
     },
     {
       "path": "/api/trending/all/week",
-      "schedule": "0 */6 * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 } 
