@@ -11,16 +11,11 @@
   ],
   "crons": [
     {
-      "path": "/api/genre/movie/list",
-      "schedule": "0 0 * * *"
-    },
-    {
-      "path": "/api/genre/tv/list",
-      "schedule": "0 0 * * *"
-    },
-    {
-      "path": "/api/trending/all/week",
-      "schedule": "0 0 * * *"
+      "path": "/api/cron/daily-update",
+      "schedule": "0 0 * * *",
+      "headers": {
+        "Authorization": "Bearer ${CRON_SECRET}"
+      }
     }
   ]
 } 
