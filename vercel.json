@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400"
+      }
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/genre/movie/list",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/genre/tv/list",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/trending/all/week",
+      "schedule": "0 */6 * * *"
+    }
+  ]
+} 
